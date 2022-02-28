@@ -1,3 +1,51 @@
 from django.db import models
+from accounts.models import NewUserDj
+
+STATUS = ((0, 'Proposal'), (1, 'Approved'))
+
+class Venue (models.Model): 
+    """Class to set the Venues"""
+    name = models.CharField(max_length=50, unique=True)
+    address = models.CharField(max_length=80)
+    venue_link = models.CharField(max_length=100, unique=True)
+    additional_info = models.TextField(blank=True)
+    contact_info = models.CharField(max_length=50)
+    emergency_info = models.CharField(max_length=50)
+
+
+
+    def __str__(self):
+        return f"{self.name}"   
+
+
+class Gig (models.Model):
+    """Class to set the gigs"""
+    event_name = models.CharField(max_length=50, unique=True, default='party-')
+    event_date = models.DateTimeField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(max_length=200, unique=True)
+    dj = models.ForeignKey(
+        NewUserDj, on_delete=models.CASCADE, related_name='gig_event')
+    status = models.IntegerField(choices=STATUS, default=0)
+    venue = models.ForeignKey(
+        Venue, on_delete=models.CASCADE, related_name='gig_venue'
+    )
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Gig on {self.event_date} at the {self.venue.name} featuring {self.dj.user_name}"
+    
+
+
+
+
+
+
+
+
+
 
 # Create your models here.

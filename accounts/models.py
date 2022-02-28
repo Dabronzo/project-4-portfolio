@@ -17,10 +17,9 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError('Superuser must be assigned to is_staff=True.')
 
         if others.get('is_superuser') is not True:
-             raise ValueError('Superuser must be assigned to is_superuser=True.')
+            raise ValueError('Superuser must be assigned to is_superuser=True.')
         
         return self.create_user(email, user_name, password, **others)
-
 
     def create_user(self, email, user_name, password, **others):
         """Function to retrun a new user """
