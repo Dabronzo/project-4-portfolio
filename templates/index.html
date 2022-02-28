@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-3 left">
+            <div class="row">
+                <!--Here comes the cards-->
+                <div class="col-md-3">
+                    <div class="card text-white bg-success mb-4">
+                        <div class="card-header">Confirmed Gig</div>
+                        <div class="card-body">
+                            <h5 class="card-title">DD/MM/YYYY</h5>
+                            <p class="card-text">Venue Name</p>
+                            <p class="cart-text">City Name</p>
+                            <a href="#" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-danger mb-4">
+                        <div class="card-header">Cancelled Gig</div>
+                        <div class="card-body">
+                            <h5 class="card-title">DD/MM/YYYY</h5>
+                            <p class="card-text">Venue Name</p>
+                            <p class="cart-text">City Name</p>
+                            <a href="#" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning mb-4">
+                        <div class="card-header">Proposal Gig</div>
+                        <div class="card-body">
+                            <h5 class="card-title">DD/MM/YYYY</h5>
+                            <p class="card-text">Venue Name</p>
+                            <p class="cart-text">City Name</p>
+                            <p></p>
+                            <a href="#" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
