@@ -2,10 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy
 
+
 class CustomAccountManager(BaseUserManager):
     """ A Custom User Account Manager to
     create a new user dj and a superuser for the application"""
-
 
     def create_superuser(self, email, user_name, password, **others):
         """Function to create the superuser"""
@@ -17,7 +17,9 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError('Superuser must be assigned to is_staff=True.')
 
         if others.get('is_superuser') is not True:
-            raise ValueError('Superuser must be assigned to is_superuser=True.')
+            raise ValueError(
+                'Superuser must be assigned to is_superuser=True.'
+                )
         
         return self.create_user(email, user_name, password, **others)
 

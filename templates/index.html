@@ -6,42 +6,43 @@
         <div class="col-12 mt-3 left">
             <div class="row">
                 <!--Here comes the cards-->
+            {% for gig in object_list  %}
                 <div class="col-md-3">
+                    {% if gig.status %}
                     <div class="card text-white bg-success mb-4">
                         <div class="card-header">Confirmed Gig</div>
-                        <div class="card-body">
-                            <h5 class="card-title">DD/MM/YYYY</h5>
-                            <p class="card-text">Venue Name</p>
-                            <p class="cart-text">City Name</p>
-                            <a href="#" class="btn btn-primary">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-danger mb-4">
-                        <div class="card-header">Cancelled Gig</div>
-                        <div class="card-body">
-                            <h5 class="card-title">DD/MM/YYYY</h5>
-                            <p class="card-text">Venue Name</p>
-                            <p class="cart-text">City Name</p>
-                            <a href="#" class="btn btn-primary">Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
+                    {% else %}
                     <div class="card text-white bg-warning mb-4">
                         <div class="card-header">Proposal Gig</div>
+                    {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title">DD/MM/YYYY</h5>
-                            <p class="card-text">Venue Name</p>
+                            <h5 class="card-title">{{ gig.event_date }}</h5>
+                            <p class="card-text">{{ gig.venue.name }}</p>
                             <p class="cart-text">City Name</p>
-                            <p></p>
                             <a href="#" class="btn btn-primary">Details</a>
                         </div>
                     </div>
                 </div>
+            {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor %}
             </div>
         </div>
     </div>
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 {% endblock content %}
