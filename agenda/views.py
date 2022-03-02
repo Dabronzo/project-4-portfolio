@@ -1,6 +1,9 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from .models import Gig
+from .utilities import get_diff_days
+
 
 # Paginator
 from django.core.paginator import Paginator
@@ -48,12 +51,15 @@ class GigDetail(View):
         queryset = Gig.objects.all()
         gig = get_object_or_404(queryset, slug=slug)
         venue = gig.venue
+        days_to = get_diff_days(gig.event_date)
+
 
         return render(
             request,
             'gig_detail.html',
             {
                 'gig': gig,
-                'venue': venue
+                'venue': venue,
+                'days_to': days_to
             }
         )

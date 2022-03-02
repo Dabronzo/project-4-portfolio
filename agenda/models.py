@@ -39,13 +39,3 @@ class Gig (models.Model):
         return f"Gig on {self.event_date} at the {self.venue.name} featuring {self.dj.user_name}"
     
 
-
-
-
-
-
-
-
-
-
-# Create your models here.

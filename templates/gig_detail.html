@@ -7,9 +7,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mt-5">
+                        {% if gig.status %}
                         <div class="card-body text-white bg-success">
                             <h5 class="card-title">Confirmed Gig</h5>
-                            <p class="card-text">{{ gig.event_date }} - X days to the event</p>
+                        {% else %}
+                        <div class="card-body text-white bg-warning">
+                            <h5 class="card-title">Gig Proposal</h5>
+                        {% endif %}
+                            <p class="card-text">{{ gig.event_date }} - {{ days_to }} days to the event</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -27,10 +32,14 @@
                                     Also forgot to put :(
                                 </p>
                             </li>
+                            {% if gig.status %}
+
+                            {% else %}
                             <li class="list-group-item">
                                 <a href="#" class="btn text-white bg-success">Accept</a>
                                 <a href="#" class="btn text-white bg-danger">Refuse</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -46,16 +55,16 @@
                             </li>
                             <li class="list-group-item">
                                 <strong>Contact info: </strong
-                ><span>Ayrton phone 00000000</span>
+                ><span>{{ venue.contact_info }}</span>
               </li>
               <li class="list-group-item">
                 <strong>Emergency info: </strong
-                ><span>Carlos info: 0000000000</span>
+                ><span>{{ venue.emergency_info }}</span>
               </li>
               <li class="list-group-item">
                 <strong>Additional Notes:</strong>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec mauris nisi. Cras sollicitudin diam sit amet efficitur porttitor.
+                                    {{ venue.additional_info }}
                                 </p>
                             </li>
                         </ul>
