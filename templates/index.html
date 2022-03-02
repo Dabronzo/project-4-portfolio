@@ -6,7 +6,7 @@
         <div class="col-12 mt-3 left">
             <div class="row">
                 <!--Here comes the cards-->
-            {% for gig in object_list  %}
+            {% for gig in gigs_list  %}
                 <div class="col-md-3">
                     {% if gig.status %}
                     <div class="card text-white bg-success mb-4">
@@ -31,18 +31,16 @@
             </div>
         </div>
     </div>
-    {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% if gigs_list.has_previous %}
+            <li><a href="?page={{ gigs_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
             {% endif %}
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% if gigs_list.has_next %}
+            <li><a href="?page={{ gigs_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
 
             {% endif %}
         </ul>
     </nav>
-    {% endif %}
 </div>
 {% endblock content %}

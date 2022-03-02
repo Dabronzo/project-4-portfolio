@@ -2,52 +2,39 @@ from django.shortcuts import render
 from django.views import generic, View
 from .models import Gig
 
-
-
-# class GigsList (generic.ListView):
-#     """Class to display the list of gigs as index"""
-#     model = Gig
-#     queryset = Gig.objects.order_by('event_date')
-#     template_name = 'index.html'
-#     paginate_by = 8
-
-#     def get(self, request, *args, **kwargs):
-#         user_dj = self.request.user
-#         if user_dj == None:
-#             page = render(
-#                 request, 'index.html'
-#             )
-#         else:
-#             queryset = Gig.objects.filter(dj=user_dj).order_by('event_date')
-
-#             page = render(
-#                 request, 'index.html', {
-#                    'object_list': queryset,
-#                    'paginate_by': self.paginate_by 
-#                 }
-#             )
-        
-#         return page
+# Paginator
+from django.core.paginator import Paginator
 
 
 class NewGigsList (View):
+    """View class to display the gigs according to the user logged in
+    and display the gigs with pagination"""
+
 
     def get(self, request, *args, **kwargs):
-        paginate_by = 8
+        """Method to get a list of gigs if
+        the user is not anonymous"""
+
         dj_logged = self.request.user
 
-        if dj_logged.id == None:
+        if dj_logged.id is None:
             return render(
                 request, 'index.html'
             )  
         else:
             queryset = Gig.objects.filter(dj=dj_logged).order_by('event_date')
+            # Pagination
+
+            p = Paginator(queryset, 8)
+            page = request.GET.get('page')
+            gigs_list = p.get_page(page)
 
             return render(
             request,
             'index.html',
             {
                 'object_list': queryset,
+                'gigs_list': gigs_list,
             }
         )
 
