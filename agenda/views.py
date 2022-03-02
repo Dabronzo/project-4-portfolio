@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from .models import Gig
 
@@ -39,4 +39,21 @@ class NewGigsList (View):
         )
 
 
-# Create your views here.
+class GigDetail(View):
+    """Class to render the detail page of
+    a gig"""
+
+    def get(self, request, slug, *args, **kwargs):
+        """Get method to render the gig details"""
+        queryset = Gig.objects.all()
+        gig = get_object_or_404(queryset, slug=slug)
+        venue = gig.venue
+
+        return render(
+            request,
+            'gig_detail.html',
+            {
+                'gig': gig,
+                'venue': venue
+            }
+        )

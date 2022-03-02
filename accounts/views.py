@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
-from django.views import generic, View
+from django.views import View
 from django.contrib.auth import login, authenticate, logout
 from accounts.forms import RegistrationForm
-
-
 
 
 class LoginView (View):
     """Login class view"""
 
     def get(self, request):
+        """Render the login page"""
 
         return render(
             request,
             'login.html'
         )
-    
+
     def post(self, request):
+        """POST method to login"""
         email = request.POST['email']
         password = request.POST['password']
         user = authenticate(email=email, password=password)
@@ -26,10 +26,12 @@ class LoginView (View):
         else:
             pass
 
+
 class RegisterView(View):
     """Class to handle the Register View and authentication"""
 
     def get(self, request):
+        """Render the registerpage"""
         form = RegistrationForm()
         return render(
             request,
@@ -37,7 +39,7 @@ class RegisterView(View):
                 'form': form
             }
         )
-    
+
     def post(self, request):
         """Post method for registration"""
         form = RegistrationForm(request.POST)
@@ -56,9 +58,11 @@ class RegisterView(View):
                 }
             )
 
+
 class UserLogOut(View):
     """View to log out"""
 
     def get(self, request):
+        """Logout method"""
         logout(request)
         return redirect('home')

@@ -20,7 +20,7 @@
                         <h5 class="card-title">{{ gig.event_date }}</h5>
                         <p class="card-text">{{ gig.venue.name }}</p>
                         <p class="cart-text">City Name</p>
-                        <a href="#" class="btn btn-primary">Details</a>
+                        <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>

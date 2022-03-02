@@ -20,15 +20,13 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.'
                 )
-        
         return self.create_user(email, user_name, password, **others)
 
     def create_user(self, email, user_name, password, **others):
         """Function to retrun a new user """
-        
         if not email:
             raise ValueError(gettext_lazy('You must provide a email address'))
-        
+
         email = self.normalize_email(email)
         user = self.model(email=email, user_name=user_name, **others)
         user.set_password(password)
@@ -37,13 +35,13 @@ class CustomAccountManager(BaseUserManager):
         return user
 
 
-
 class NewUserDj(AbstractBaseUser, PermissionsMixin):
+    """Custom User model to be used on the project"""
 
     email = models.EmailField(gettext_lazy('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
-    join_date =  models.DateTimeField(auto_now_add=True)
-    is_staff = models.BooleanField(default = False)
+    join_date = models.DateTimeField(auto_now_add=True)
+    is_staff = models.BooleanField(default=False)
 
     objects = CustomAccountManager()
 
@@ -51,6 +49,5 @@ class NewUserDj(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name']
 
     def __str__(self):
-        return self.user_name
-    
-
+        """string method"""
+        return f"{self.user_name}"

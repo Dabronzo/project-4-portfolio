@@ -3,9 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .models import NewUserDj
 
-class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(max_length=50, help_text="Required a emal to registration")
 
+class RegistrationForm(UserCreationForm):
+    """Custom Registration Form"""
+    email = forms.EmailField(
+        max_length=50, help_text="Required a emal to registration"
+    )
 
     class Meta:
         model = NewUserDj

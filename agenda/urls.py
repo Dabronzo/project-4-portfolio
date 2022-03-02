@@ -3,4 +3,5 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.NewGigsList.as_view(), name='home'),
+    path('<slug:slug>', views.GigDetail.as_view(), name='gig_detail'),
 ]
