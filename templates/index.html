@@ -6,28 +6,51 @@
         <div class="col-12 mt-3 left">
             <div class="row">
                 <!--Here comes the cards-->
+            {% if user.is_authenticated %}
             {% for gig in gigs_list  %}
-                <div class="col-md-3">
-                    {% if gig.status %}
-                    <div class="card text-white bg-success mb-4">
-                        <div class="card-header">Confirmed Gig</div>
-                    {% else %}
-                    <div class="card text-white bg-warning mb-4">
-                        <div class="card-header">Proposal Gig</div>
-                    {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ gig.event_date }}</h5>
-                            <p class="card-text">{{ gig.venue.name }}</p>
-                            <p class="cart-text">City Name</p>
-                            <a href="#" class="btn btn-primary">Details</a>
-                        </div>
+            <div class="col-md-3">
+                {% if gig.status %}
+                <div class="card text-white bg-success mb-4">
+                    <div class="card-header">Confirmed Gig</div>
+                {% else %}
+                <div class="card text-white bg-warning mb-4">
+                    <div class="card-header">Proposal Gig</div>
+                {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gig.event_date }}</h5>
+                        <p class="card-text">{{ gig.venue.name }}</p>
+                        <p class="cart-text">City Name</p>
+                        <a href="#" class="btn btn-primary">Details</a>
                     </div>
                 </div>
-            {% if forloop.counter|divisibleby:4 %}
             </div>
+        {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row">
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <div class="container">
             <div class="row">
-            {% endif %}
-            {% endfor %}
+                <div class="col-12 mt-5">
+                    <div id="jumbo-out">
+                        <div class="jumbotron text-white" id="jumbo-in">
+                            <h1 class="display-4">
+                                Welcome to <span class="logo-jumbo">Flamingo</span>
+                            </h1>
+                            <p class="lead">A simple solution for artists and agencies</p>
+                            <hr class="my-4" />
+                            <p>
+                                Register bellow to discover a better way to manage your gigs.
+                            </p>
+                            <a class="btn form-custom text-white btn-lg" href="{% url 'register' %}" role="button">Register</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        {% endif %}
             </div>
         </div>
     </div>

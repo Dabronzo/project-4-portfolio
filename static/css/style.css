@@ -26,6 +26,24 @@ a {
     background-color: rgb(214, 57, 144);
 }
 
+.logo-jumbo {
+    color: rgb(214, 57, 144);
+    font-weight: bolder;
+}
+
 .login-custom {
     background-color: burlywood;
+}
+
+#jumbo-out {
+    background: url("../images/jumbo_pic.jpg") no-repeat center center;
+    background-size: cover;
+    transform: scaleX(-1);
+}
+
+#jumbo-in {
+    background-color: transparent;
+    transform: scaleX(-1);
+    background-image: linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
+    width: 100%;
 }
