@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container-fluid">
@@ -7,50 +8,67 @@
             <div class="row">
                 <!--Here comes the cards-->
             {% if user.is_authenticated %}
-            {% for gig in gigs_list  %}
-            <div class="col-md-3">
-                {% if gig.status %}
-                <div class="card text-white bg-success mb-4">
-                    <div class="card-header">Confirmed Gig</div>
+                {% if gigs_list %}
+                    {% for gig in gigs_list  %}
+                    <div class="col-md-3">
+                        {% if gig.status %}
+                        <div class="card text-white bg-success mb-4">
+                            <div class="card-header">Confirmed Gig</div>
+                        {% else %}
+                        <div class="card text-white bg-warning mb-4">
+                            <div class="card-header">Proposal Gig</div>
+                        {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ gig.event_date }}</h5>
+                                <p class="card-text">{{ gig.venue.name }}</p>
+                                <p class="cart-text">City Name</p>
+                                <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
+                            </div>
+                        </div>
+                        </div>
+                    {% if forloop.counter|divisibleby:4 %}
+                        </div>
+                        <div class="row">
+                        {% endif %}
+                        {% endfor %}
                 {% else %}
-                <div class="card text-white bg-warning mb-4">
-                    <div class="card-header">Proposal Gig</div>
-                {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ gig.event_date }}</h5>
-                        <p class="card-text">{{ gig.venue.name }}</p>
-                        <p class="cart-text">City Name</p>
-                        <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 mt-5">
+                            <div class="jumbotron bg-dark text-center text-white">
+                                <img src="{% static 'images/flamingo_sunglass_square.jpg' %}" alt="flamingo with sunglasses" class="flamingo_image" />
+                                <h1 class="display-4 logo-jumbo">Hey DJ!</h1>
+                                <p class="lead">You don't have any gig at this moment.</p>
+                                <hr class="my-4" />
+                                <p>for more info contact the admin at charlyalaneperon@gmail.com</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {% endif %}
+                
+            {% else %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <div id="jumbo-out">
+                            <div class="jumbotron text-white" id="jumbo-in">
+                                <h1 class="display-4">
+                                    Welcome to <span class="logo-jumbo">Flamingo</span>
+                                </h1>
+                                <p class="lead">A simple solution for artists and agencies</p>
+                                <hr class="my-4" />
+                                <p>
+                                    Register bellow to discover a better way to manage your gigs.
+                                </p>
+                                <a class="btn form-custom text-white btn-lg" href="{% url 'register' %}" role="button">Register</a
+                    >
+                </div>
+                </div>
             </div>
-        {% if forloop.counter|divisibleby:4 %}
-        </div>
-        <div class="row">
-        {% endif %}
-        {% endfor %}
-        {% else %}
-        <div class="container">
-            <div class="row">
-                <div class="col-12 mt-5">
-                    <div id="jumbo-out">
-                        <div class="jumbotron text-white" id="jumbo-in">
-                            <h1 class="display-4">
-                                Welcome to <span class="logo-jumbo">Flamingo</span>
-                            </h1>
-                            <p class="lead">A simple solution for artists and agencies</p>
-                            <hr class="my-4" />
-                            <p>
-                                Register bellow to discover a better way to manage your gigs.
-                            </p>
-                            <a class="btn form-custom text-white btn-lg" href="{% url 'register' %}" role="button">Register</a
-                >
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-        {% endif %}
+            {% endif %}
             </div>
         </div>
     </div>

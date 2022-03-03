@@ -47,3 +47,9 @@ a {
     background-image: linear-gradient( to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
     width: 100%;
 }
+
+.flamingo_image {
+    border-radius: 50%;
+    max-width: 60px;
+    max-height: 60px;
+}
