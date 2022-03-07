@@ -7,7 +7,6 @@ def get_diff_days(datatime):
     future_date = datatime.date()
     today = date.today()
 
-    result = abs(today - future_date).days
+    result = (future_date - today).days
 
     return result
-

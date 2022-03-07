@@ -1,7 +1,7 @@
 from django.db import models
 from accounts.models import NewUserDj
 
-STATUS = ((0, 'Proposal'), (1, 'Approved'))
+STATUS = ((0, 'Proposal'), (1, 'Approved'), (3, 'Rejected'))
 
 
 class Venue (models.Model): 
@@ -32,6 +32,8 @@ class Gig (models.Model):
     venue = models.ForeignKey(
         Venue, on_delete=models.CASCADE, related_name='gig_venue'
     )
+    fees = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    info_notes = models.TextField(blank=True)
 
     class Meta:
         ordering = ['-created_on']

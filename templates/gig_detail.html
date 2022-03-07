@@ -14,7 +14,7 @@
                         <div class="card-body text-white bg-warning">
                             <h5 class="card-title">Gig Proposal</h5>
                         {% endif %}
-                            <p class="card-text">{{ gig.event_date }} - {{ days_to }} days to the event</p>
+                            <p class="card-text">{{ gig.event_date }} -> {{ days_to }} days to the event</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -24,12 +24,12 @@
                                 <strong>Total Set Time: </strong><span>Forgot to set on the model</span>
                             </li>
                             <li class="list-group-item">
-                                <strong>Fees: </strong>$<span>Also forgot</span>
+                                <strong>Fees: </strong>$<span>{{ gig.fees }}</span>
                             </li>
                             <li class="list-group-item">
                                 <strong>Notes: </strong>
                                 <p>
-                                    Also forgot to put :(
+                                    {{ gig.info_notes }}
                                 </p>
                             </li>
                             {% if gig.status %}
