@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, authenticate, logout
 from accounts.forms import RegistrationForm
+from django.contrib import messages
 
 
 class LoginView (View):
@@ -22,9 +23,18 @@ class LoginView (View):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, (
+                "Welcome, logged in as:"
+            ))
             return redirect('home')
         else:
-            pass
+            messages.error(request, (
+                "An error ocurred with the login, please try again."
+                ))
+            return render(
+                request,
+                'login.html'
+            )
 
 
 class RegisterView(View):
@@ -49,6 +59,9 @@ class RegisterView(View):
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request, account)
+            messages.info(request, (
+                "Success! You are registered on Flamingo"
+            ))
             return redirect('home')
         else:
             return render(

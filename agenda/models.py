@@ -3,6 +3,7 @@ from accounts.models import NewUserDj
 
 STATUS = ((0, 'Proposal'), (1, 'Approved'))
 
+
 class Venue (models.Model): 
     """Class to set the Venues"""
     name = models.CharField(max_length=50, unique=True)
