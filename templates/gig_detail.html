@@ -21,7 +21,7 @@
                                 <strong>Start Time: </strong><span> Still need to figure out</span>
                             </li>
                             <li class="list-group-item">
-                                <strong>Total Set Time: </strong><span>Forgot to set on the model</span>
+                                <strong>Total Set Time: </strong><span>{{ gig.play_time }}</span>
                             </li>
                             <li class="list-group-item">
                                 <strong>Fees: </strong>$<span>{{ gig.fees }}</span>
@@ -57,7 +57,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <strong>Address:</strong>
-                                <span>{{ venue.address }}</span>
+                                <span>{{ venue.address }}, {{ venue.city }}</span>
                             </li>
                             <li class="list-group-item">
                                 <strong>Contact info: </strong
