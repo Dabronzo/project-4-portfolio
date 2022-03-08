@@ -1,6 +1,6 @@
-
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.http import HttpResponseRedirect
 from .models import Gig
 from .utilities import get_diff_days
 
@@ -26,9 +26,10 @@ class NewGigsList (View):
             )  
         else:
             queryset = Gig.objects.filter(dj=dj_logged).order_by('event_date')
+            exclued_reject = queryset.exclude(status=3).order_by('event_date')
             # Pagination
 
-            p = Paginator(queryset, 8)
+            p = Paginator(exclued_reject, 8)
             page = request.GET.get('page')
             gigs_list = p.get_page(page)
 
@@ -66,3 +67,43 @@ class GigDetail(View):
                 'days_to': days_to
             }
         )
+
+
+class AcceptGig(View):
+    """View class to user acept a gig proposal"""
+
+    def post(self, request, slug, *args, **kwargs):
+        """Post method takeing the slug and changing the status of
+        a gig on database"""
+
+        gig = get_object_or_404(Gig, slug=slug)
+        venue = gig.venue
+        days_to = get_diff_days(gig.event_date)
+
+        gig.status = 1
+        gig.save()
+
+        return render(
+            request,
+            'gig_detail.html',
+            {
+                'gig': gig,
+                'venue': venue,
+                'days_to': days_to
+            }
+        )
+
+
+class RefuseGig(View):
+    """View class to user refuse a gig proposal"""
+
+    def post(self, request, slug, *args, **kwargs):
+        """Post method takeing the slug and changing the status of
+        a gig on database"""
+
+        gig = get_object_or_404(Gig, slug=slug)
+
+        gig.status = 3
+        gig.save()
+
+        return redirect('home')

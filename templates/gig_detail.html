@@ -36,8 +36,14 @@
 
                             {% else %}
                             <li class="list-group-item">
-                                <a href="#" class="btn text-white bg-success">Accept</a>
-                                <a href="#" class="btn text-white bg-danger">Refuse</a>
+                                <form class="d-inline" action="{% url 'gig_accept' gig.slug %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" name="agenda_gig_id" value="{{ gig.slug }}" class="btn text-white bg-success">Accept</button>
+                                </form>
+                                <form class="d-inline" action="{% url 'gig_refuse' gig.slug %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" name="agenda_gig_id" value="{{ gig.slug }}" class="btn text-white bg-danger">Refuse</button>
+                                </form>
                             </li>
                             {% endif %}
                         </ul>
