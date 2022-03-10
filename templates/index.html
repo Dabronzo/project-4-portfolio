@@ -11,7 +11,7 @@
                 {% if gigs_list %}
                     {% for gig in gigs_list  %}
                     <div class="col-md-3">
-                        {% if gig.status %}
+                        {% if gig.status and gig.days_to >= 0 %}
                         <div class="card text-white bg-success mb-4">
                             <div class="card-header">Confirmed Gig</div>
                         {% else %}
@@ -20,6 +20,7 @@
                         {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ gig.event_date }}</h5>
+                                <small>{{ gig.days_to }}</small>
                                 <p class="card-text">{{ gig.venue.name }}</p>
                                 <p class="cart-text">{{ gig.venue.city }}</p>
                                 <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
