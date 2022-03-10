@@ -10,26 +10,28 @@
             {% if user.is_authenticated %}
                 {% if gigs_list %}
                     {% for gig in gigs_list  %}
-                    <div class="col-md-3">
-                        {% if gig.status and gig.days_to >= 0 %}
-                        <div class="card text-white bg-success mb-4">
-                            <div class="card-header">Confirmed Gig</div>
-                        {% else %}
-                        <div class="card text-white bg-warning mb-4">
-                            <div class="card-header">Proposal Gig</div>
-                        {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ gig.event_date }}</h5>
-                                <small>{{ gig.days_to }}</small>
-                                <p class="card-text">{{ gig.venue.name }}</p>
-                                <p class="cart-text">{{ gig.venue.city }}</p>
-                                <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
+                        {% if gig.days_to >= 0 %}
+                        <div class="col-md-3">
+                            {% if gig.status %}
+                            <div class="card text-white bg-success mb-4">
+                                <div class="card-header">Confirmed Gig</div>
+                            {% else %}
+                            <div class="card text-white bg-warning mb-4">
+                                <div class="card-header">Proposal Gig</div>
+                            {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ gig.event_date }}</h5>
+                                    <small>{{ gig.days_to }}</small>
+                                    <p class="card-text">{{ gig.venue.name }}</p>
+                                    <p class="cart-text">{{ gig.venue.city }}</p>
+                                    <a href="{% url 'gig_detail' gig.slug %}" class="btn btn-primary">Details</a>
+                                </div>
                             </div>
-                        </div>
-                        </div>
-                    {% if forloop.counter|divisibleby:4 %}
-                        </div>
-                        <div class="row">
+                            </div>
+                        {% if forloop.counter|divisibleby:4 %}
+                            </div>
+                            <div class="row">
+                            {% endif %}
                         {% endif %}
                         {% endfor %}
                 {% else %}

@@ -55,7 +55,7 @@ class GigDetail(View):
         gig = get_object_or_404(queryset, slug=slug)
         venue = gig.venue
 
-        days_to = get_diff_days(gig.event_date)
+        # days_to = get_diff_days(gig.event_date)
 
         return render(
             request,
@@ -63,7 +63,7 @@ class GigDetail(View):
             {
                 'gig': gig,
                 'venue': venue,
-                'days_to': days_to
+                # 'days_to': days_to
             }
         )
 
