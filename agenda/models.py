@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import NewUserDj
-from date import date, datetime
+from datetime import date
 
 STATUS = ((0, 'Proposal'), (1, 'Approved'), (3, 'Rejected'))
 
