@@ -36,28 +36,13 @@ class Gig (models.Model):
     fees = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     info_notes = models.TextField(blank=True)
 
+    @property
     def days_to(self):
         """Function to get the difference
         between days"""
         today = date.today()
         days_till = (self.event_date.date() - today).days
         return days_till
-
-
-    def event_completed(self):
-        """Function return a simple string
-        if the event alredy passed acourding to
-        the curently date"""
-
-        is_passed = self.days_to()
-        if is_passed == 0:
-            return "Today"
-        elif is_passed > 0:
-            return "Future"
-        else:
-            return "Passed"
-
-
 
     class Meta:
         ordering = ['-created_on']

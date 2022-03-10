@@ -12,7 +12,6 @@ class NewGigsList (View):
     """View class to display the gigs according to the user logged in
     and display the gigs with pagination"""
 
-
     def get(self, request, *args, **kwargs):
         """Method to get a list of gigs if
         the user is not anonymous"""
@@ -41,7 +40,6 @@ class NewGigsList (View):
             )
 
 
-
 class GigDetail(View):
     """Class to render the detail page of
     a gig"""
@@ -55,15 +53,12 @@ class GigDetail(View):
         gig = get_object_or_404(queryset, slug=slug)
         venue = gig.venue
 
-        # days_to = get_diff_days(gig.event_date)
-
         return render(
             request,
             'gig_detail.html',
             {
                 'gig': gig,
                 'venue': venue,
-                # 'days_to': days_to
             }
         )
 
