@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import NewUserDj
+from date import date, datetime
 
 STATUS = ((0, 'Proposal'), (1, 'Approved'), (3, 'Rejected'))
 
@@ -34,6 +35,13 @@ class Gig (models.Model):
     )
     fees = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     info_notes = models.TextField(blank=True)
+
+    def days_to(self):
+        """Function to get the difference
+        between days"""
+        today = date.today()
+        days_till = self.event_date.date() - today
+        return days_till
 
     class Meta:
         ordering = ['-created_on']

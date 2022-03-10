@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.http import HttpResponseRedirect
 from .models import Gig
 from .utilities import get_diff_days
 
