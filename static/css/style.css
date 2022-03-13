@@ -68,3 +68,8 @@ a {
 .completed_gig {
     background-color: rgb(189, 188, 192);
 }
+
+.check {
+    color: black;
+    width: 100%;
+}

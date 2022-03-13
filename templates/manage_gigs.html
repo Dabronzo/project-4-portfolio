@@ -7,8 +7,8 @@
         <div class="col-12">
             <div class="table-responsive-sm mt-3">
                 <h2 class="text-center">All Gigs List</h2>
-                <a href="#" class="btn text-white bg-info">Create Gig</a>
-                <a class="btn text-white bg-info" data-toggle="collapse" href="#colapsed_table" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View Passed Gigs</a>
+                <a href="{% url 'create_gig' %}" class="btn text-white bg-info">Create Gig</a>
+                <a class="btn text-white bg-info" data-toggle="collapse" href="#colapsed_table" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View Past Gigs</a>
                 <table class="table mt-5 border text-center collapse multi-collapse" id="colapsed_table">
                     <thead class=" thead-dark ">
                         <tr>
@@ -30,7 +30,7 @@
                                     <td>{{ gig_passed.venue.name }}</td>
                                     <td>{{ gig_passed.dj }}</td>
                                     <td>Still</td>
-                                    <td><a href="# " class="p-2 text-white mx-1 bg-success ">Update</a><a href="# " class="p-2 text-white mx-1 bg-danger ">Delete</a></td>
+                                    <td><a href="# " class="p-2 text-white mx-1 bg-success ">Update</a>
                                 </tr>
                                 {% endfor %}
                         {% endif %}
@@ -69,8 +69,12 @@
                                     {% else %}
                                     <td>Refuse</td>
                                     {% endif %}
-                                    <td>Still</td>
-                                    <td><a href="# " class="p-2 text-white mx-1 bg-success ">Update</a><a href="# " class="p-2 text-white mx-1 bg-danger ">Delete</a></td>
+                                    {% if gig.is_payed %}
+                                    <td><i class="fa-solid check fa-circle-check"></i></td>
+                                    {% else %}
+                                    <td><i class="fa-solid fa-circle-xmark"></i></td>
+                                    {% endif %}
+                                    <td><a href="{% url 'update_gig' gig.slug %}" class="p-2 text-white mx-1 bg-success ">Update</a></td>
                                 </tr>
                             {% endfor %}
                         {% endif %}

@@ -13,3 +13,4 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = NewUserDj
         fields = ("email", "user_name", "password1", "password2")
+

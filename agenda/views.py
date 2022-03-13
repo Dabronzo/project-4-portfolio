@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Gig
-from .utilities import get_diff_days
 from datetime import date
+from .forms import GigCreateForm
 
 
 # Paginator
@@ -73,7 +73,6 @@ class AcceptGig(View):
 
         gig = get_object_or_404(Gig, slug=slug)
         venue = gig.venue
-        days_to = get_diff_days(gig.event_date)
 
         gig.status = 1
         gig.save()
@@ -84,7 +83,6 @@ class AcceptGig(View):
             {
                 'gig': gig,
                 'venue': venue,
-                'days_to': days_to
             }
         )
 
@@ -111,7 +109,6 @@ class ManageGigs(View):
     def get(self, request, *args, **kwargs):
         """Get method to display all the gigs on a table"""
 
-        
         queryset = Gig.objects.filter(event_date__gte=self.today).order_by('event_date')
         passed_gigs = Gig.objects.filter(event_date__lt=self.today).order_by('event_date')
 
@@ -124,15 +121,75 @@ class ManageGigs(View):
             }
         )
 
-    # def passed_gigs_get(self, request, *args, **kwargs):
-    #     """Test"""
+    # def post(self, request, slug, *args, **kwargs):
+    #     """Post Method to make changes on the gig"""
 
-    #     queryset = Gig.objects.filert(event_date__ly=self.today).order_by('event_date')
+    #     gig = get_object_or_404(Gig, slug=slug)
 
-    #     return render(
-    #         request,
-    #         'manage_gigs.html',
-    #         {
-    #             'all_gigs': queryset
-    #         }
-    #     )
+
+
+
+class DeleteGig(View):
+    """Class method to delete a gig"""
+
+    def post(self, request, slug, *args, **kwargs):
+        """Post method to delete a gig"""
+
+        gig = get_object_or_404(Gig, slug=slug)
+        gig.delete()
+
+        return redirect('manage_gigs')
+
+
+class CreateGigForm(View):
+    """Class to create Gigs"""
+
+    def get(self, request, *args, **kwargs):
+        """Get to the GigCreateForm"""
+
+        form = GigCreateForm()
+        return render(
+            request,
+            'create_gig.html',
+            {
+                'form': form
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        """Post the new Gig"""
+        
+        form = GigCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return redirect('manage_gigs')
+
+
+class UpdateGig(View):
+    """Class to update gig"""
+
+    def get(self, request, slug, *args, **kwargs):
+        """Get method view form update"""
+
+        gig = get_object_or_404(Gig, slug=slug)
+        form = GigCreateForm(instance=gig)
+        return render(
+            request,
+            'update_gigs.html',
+            {
+                'form': form,
+                'gig': gig
+            }
+        )
+    
+    def post(self, request, slug, *args, **kwargs):
+        """Post method to update"""
+
+        gig = get_object_or_404(Gig, slug=slug)
+        form = GigCreateForm(request.POST, instance=gig)
+        if form.is_valid():
+            form.save()
+
+            return redirect('manage_gigs')
+
