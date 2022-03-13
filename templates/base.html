@@ -25,7 +25,7 @@
       </button>
         <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
             <ul class="navbar-nav">
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and not user.is_superuser %}
                 <li class="nav-item ">
                   <p class="text-light nav-link text">Welcome {{ user.user_name }}</p>
               </li>
@@ -35,6 +35,20 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+            {% elif user.is_superuser %}
+            <li class="nav-item ">
+              <p class="text-light nav-link text">Welcome {{ user.user_name }}</p>
+          </li>
+            <li class="nav-item active">
+                <a class="nav-link text-light" href="{% url 'manage_gigs' %}">Manage Gigs</a
+        >
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a
+  >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+
             {% else %}
             <li class="nav-item active">
               <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a

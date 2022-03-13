@@ -53,3 +53,18 @@ a {
     max-width: 60px;
     max-height: 60px;
 }
+.confirmed_gig {
+    background-color: rgb(135, 235, 110);
+}
+
+.proposal_gig {
+    background-color: rgb(101, 170, 248);
+}
+
+.refused_gig {
+    background-color: rgb(250, 90, 78);
+}
+
+.completed_gig {
+    background-color: rgb(189, 188, 192);
+}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive-sm mt-3">
+                <h2 class="text-center">All Gigs List</h2>
+                <a href="#" class="btn text-white bg-info">Create Gig</a>
+                <a class="btn text-white bg-info" data-toggle="collapse" href="#colapsed_table" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View Passed Gigs</a>
+                <table class="table mt-5 border text-center collapse multi-collapse" id="colapsed_table">
+                    <thead class=" thead-dark ">
+                        <tr>
+                            <th scope="col ">#</th>
+                            <th scope="col ">Date</th>
+                            <th scope="col ">Venue</th>
+                            <th scope="col ">DJ</th>
+                            <th scope="col ">Payment</th>
+                            <th scope="col ">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if passed_gigs %}
+                            <tr class="completed_gig">
+                                {% for gig_passed in passed_gigs %}
+                                    <th scope="row ">{{ forloop.counter }}</th>
+                                    <td>{{ gig_passed.event_date }}</td>
+                                    <td>{{ gig_passed.venue.name }}</td>
+                                    <td>{{ gig_passed.dj }}</td>
+                                    <td>Still</td>
+                                    <td><a href="# " class="p-2 text-white mx-1 bg-success ">Update</a><a href="# " class="p-2 text-white mx-1 bg-danger ">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                        {% endif %}
+                    </tbody>
+                <table class="table mt-3 border text-center">
+                    <thead class=" thead-dark ">
+                        <tr>
+                            <th scope="col ">#</th>
+                            <th scope="col ">Date</th>
+                            <th scope="col ">Venue</th>
+                            <th scope="col ">DJ</th>
+                            <th scope="col ">Status</th>
+                            <th scope="col ">Payment</th>
+                            <th scope="col ">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if all_gigs %}
+                            {% for gig in all_gigs %}
+                                {% if gig.status == 1 %}
+                                <tr class="confirmed_gig">
+                                {% elif gig.status == 0 %}
+                                <tr class="proposal_gig">
+                                {% else %}
+                                <tr class="refused_gig">
+                                {% endif %}
+                                    <th scope="row ">{{ forloop.counter }}</th>
+                                    <td>{{ gig.event_date }}</td>
+                                    <td>{{ gig.venue.name }}, {{ gig.venue.city }}</td>
+                                    <td>{{ gig.dj }}</td>
+                                    {% if gig.status == 1 %}
+                                    <td>Confirmed</td>
+                                    {% elif gig.status == 0 %}
+                                    <td>Proposal</td>
+                                    {% else %}
+                                    <td>Refuse</td>
+                                    {% endif %}
+                                    <td>Still</td>
+                                    <td><a href="# " class="p-2 text-white mx-1 bg-success ">Update</a><a href="# " class="p-2 text-white mx-1 bg-danger ">Delete</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

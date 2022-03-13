@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Gig
 from .utilities import get_diff_days
+from datetime import date
 
 
 # Paginator
@@ -101,3 +102,37 @@ class RefuseGig(View):
         gig.save()
 
         return redirect('home')
+
+
+class ManageGigs(View):
+    """Class view for superuser manage all gigs"""
+    today = date.today()
+
+    def get(self, request, *args, **kwargs):
+        """Get method to display all the gigs on a table"""
+
+        
+        queryset = Gig.objects.filter(event_date__gte=self.today).order_by('event_date')
+        passed_gigs = Gig.objects.filter(event_date__lt=self.today).order_by('event_date')
+
+        return render(
+            request,
+            'manage_gigs.html',
+            {
+                'all_gigs': queryset,
+                'passed_gigs': passed_gigs
+            }
+        )
+
+    # def passed_gigs_get(self, request, *args, **kwargs):
+    #     """Test"""
+
+    #     queryset = Gig.objects.filert(event_date__ly=self.today).order_by('event_date')
+
+    #     return render(
+    #         request,
+    #         'manage_gigs.html',
+    #         {
+    #             'all_gigs': queryset
+    #         }
+    #     )
