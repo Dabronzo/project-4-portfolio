@@ -70,9 +70,9 @@
                                     <td>Refuse</td>
                                     {% endif %}
                                     {% if gig.is_payed %}
-                                    <td><i class="fa-solid check fa-circle-check"></i></td>
+                                    <td>Done</i></td>
                                     {% else %}
-                                    <td><i class="fa-solid fa-circle-xmark"></i></td>
+                                    <td>Not Done</td>
                                     {% endif %}
                                     <td><a href="{% url 'update_gig' gig.slug %}" class="p-2 text-white mx-1 bg-success ">Update</a></td>
                                 </tr>
